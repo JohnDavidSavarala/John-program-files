@@ -13,7 +13,7 @@ void main()
     char weatherUrl[MAXWEATHERURLLENGTH], city[MAXCITYNAMELENGTH];
     int isCityFound = 0;
 
-    printf("Printing the temperature of given city.\n");
+    printf("Printing the temperature of a given city.\n");
 
     printf("Enter city name: ");
     scanf("%s", city);
