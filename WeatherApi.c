@@ -28,9 +28,9 @@ void main()
 
     fseek(fp_weather, 0, SEEK_END);
 
-    long fp_weatherSize = ftell(fp_weather);
+    long fileSize = ftell(fp_weather);
     
-    char weatherData[fp_weatherSize];
+    char weatherData[fileSize];
     
     fseek(fp_weather, 0, SEEK_SET);
 
