@@ -251,6 +251,25 @@ EmployeeNode* FindLeafNode(EmployeeNode* node)
     return node;
 }
 
+void SetChildNode(EmployeeNode** parentPtr, EmployeeNode* childNode, EmployeeNode* nodeToDelete) 
+{
+    if (*parentPtr == nodeToDelete) 
+    {
+        *parentPtr = childNode;
+    } 
+    else 
+    {
+        if ((*parentPtr)->LeftChild == nodeToDelete) 
+        {
+            (*parentPtr)->LeftChild = childNode;
+        } 
+        else 
+        {
+            (*parentPtr)->RightChild = childNode;
+        }
+    }
+}
+
 void DeleteEmployeeRecord(EmployeeNode** currentPtr, char* employeeId) 
 {
     if (*currentPtr == NULL) 
@@ -260,14 +279,25 @@ void DeleteEmployeeRecord(EmployeeNode** currentPtr, char* employeeId)
     }
     EmployeeNode* nodeToDelete = getMatchingNode(*currentPtr, employeeId);
 
-    if (nodeToDelete->LeftChild == NULL) 
+    if (nodeToDelete == NULL) 
     {
-        *currentPtr = nodeToDelete->RightChild;
+        printf("Employee with ID %s not found.\n", employeeId);
+        return;
+    }
+
+    if (nodeToDelete->LeftChild == NULL && nodeToDelete->RightChild == NULL) 
+    {
+        SetChildNode(currentPtr, NULL, nodeToDelete);
+        free(nodeToDelete);
+    } 
+    else if (nodeToDelete->LeftChild == NULL) 
+    {
+        SetChildNode(currentPtr, nodeToDelete->RightChild, nodeToDelete);
         free(nodeToDelete);
     } 
     else if (nodeToDelete->RightChild == NULL) 
     {
-        *currentPtr = nodeToDelete->LeftChild;
+        SetChildNode(currentPtr, nodeToDelete->LeftChild, nodeToDelete);
         free(nodeToDelete);
     } 
     else 
@@ -279,9 +309,10 @@ void DeleteEmployeeRecord(EmployeeNode** currentPtr, char* employeeId)
         DeleteEmployeeRecord(&(nodeToDelete->RightChild), temp->EmployeeRecord.EmployeeId);
     }
 
-    printf("Employe Record with Id %s Deleted succesfully.\n", employeeId);
+    printf("Employee Record with ID %s Deleted successfully.\n", employeeId);
     SaveDetails();
 }
+
 
 void SearchEmployeeRecord(char *employeeId) 
 {
