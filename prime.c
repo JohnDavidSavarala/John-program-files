@@ -24,4 +24,5 @@ int isPrime(char *isPrimeValue)
         }
         return 0;
     }
+    return 2;
 }
