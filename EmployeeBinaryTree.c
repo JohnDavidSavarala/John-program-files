@@ -7,7 +7,7 @@
 
 #define MAXIDLENGTH 20
 #define MAXNAMELENGTH 100
-#define DATA_FILE "EmployeeRecords.dat"
+#define DATA_FILE "EmployeeTree.dat"
 
 typedef struct EmployeeDetails 
 {
@@ -154,10 +154,8 @@ void SaveDetails()
 
 EmployeeNode* getMatchingNode(EmployeeNode* node, const char* employeeId) 
 {
-    int isRecordFound = 0;
     if (node == NULL || strcmp(node->EmployeeRecord.EmployeeId, employeeId) == 0) 
     {
-        isRecordFound = 1;
         return node;
     }
 
@@ -168,11 +166,6 @@ EmployeeNode* getMatchingNode(EmployeeNode* node, const char* employeeId)
     else 
     {
         return getMatchingNode(node->RightChild, employeeId);
-    }
-
-    if (isRecordFound == 0)
-    {
-        printf("Record with Id %s not found.\n", employeeId);
     }
 }
 
@@ -240,6 +233,10 @@ void UpdateEmployeeDetails(char *employeeId)
         targetNode->EmployeeRecord.EmployeeSalary = getNewSalary();
         printf("Record with Id %s Updated succesffully.\n", employeeId);
     }
+    else
+    {
+        printf("Record with Id %s not found.\n", employeeId);
+    }
     SaveDetails();
 }
 
@@ -280,7 +277,7 @@ void DeleteEmployeeRecord(EmployeeNode** currentPtr, char* employeeId)
         DeleteEmployeeRecord(&(nodeToDelete->RightChild), temp->EmployeeRecord.EmployeeId);
     }
 
-    printf("")
+    printf("Employe Record with Id %s Deleted succesfully.\n", employeeId);
     SaveDetails();
 }
 
