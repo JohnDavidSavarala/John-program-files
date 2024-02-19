@@ -4,12 +4,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#define MAXARRAYLENGTH
 #include "prime.c"
 
 int main() 
 {
     int counter, passCounter = 0;
-    char testCases[5][10] = {"5", "2", "3", "11", "John"};
+    char testCases[MAXARRAYLENGTH][10] = {"5", "2", "3", "11", "23"};
     int testCasesSize = 5; // Corrected size
 
     for (counter = 0; counter < testCasesSize; counter++) 
