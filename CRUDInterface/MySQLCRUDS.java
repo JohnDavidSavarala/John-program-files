@@ -23,16 +23,16 @@ public class cMySQLCRUDS implements iCRUDOperations
     private String password;
     private String tableName;
     private String database;
-    private String[] columnNames;
+    private String[] fieldNames;
 
-    public cMySQLCRUDS(String pdbName, String ptableName, String[] pcolumnNames) throws SQLException
+    public cMySQLCRUDS(String pdbName, String ptableName, String[] pfieldNames) throws SQLException
     {
         this.host = "138.68.140.83";
         this.user = "John";
         this.password = "John@123";
         this.tableName = ptableName;
         this.database = pdbName;
-        this.columnNames = pcolumnNames;
+        this.fieldNames = pfieldNames;
 
         try 
         {
@@ -54,10 +54,10 @@ public class cMySQLCRUDS implements iCRUDOperations
         {
             StringBuilder queryBuilder = new StringBuilder("INSERT INTO ");
             queryBuilder.append(tableName).append(" (");
-            for (int counter = 0; counter < columnNames.length; counter++) 
+            for (int counter = 0; counter < fieldNames.length; counter++) 
             {
-                queryBuilder.append(columnNames[counter]);
-                if (counter < columnNames.length - 1) 
+                queryBuilder.append(fieldNames[counter]);
+                if (counter < fieldNames.length - 1) 
                 {
                     queryBuilder.append(", ");
                 }
@@ -101,11 +101,11 @@ public class cMySQLCRUDS implements iCRUDOperations
             while (rs.next()) 
             {
                 String[] record = new String[5];
-                record[0] = rs.getString(columnNames[0]);
-                record[1] = rs.getString(columnNames[1]);
-                record[2] = String.valueOf(rs.getInt(columnNames[2]));
-                record[3] = String.valueOf(rs.getInt(columnNames[3]));
-                record[4] = rs.getString(columnNames[4]);
+                record[0] = rs.getString(fieldNames[0]);
+                record[1] = rs.getString(fieldNames[1]);
+                record[2] = String.valueOf(rs.getInt(fieldNames[2]));
+                record[3] = String.valueOf(rs.getInt(fieldNames[3]));
+                record[4] = rs.getString(fieldNames[4]);
                 records.add(record);
             }
         } 
