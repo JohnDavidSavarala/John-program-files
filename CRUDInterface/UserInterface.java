@@ -10,40 +10,22 @@ import java.util.Scanner;
 public class cUserInterface 
 {
     private Scanner scanner;
-    private String[] columnNames;
+    private String[] fieldNames;
     private String tableName;
 
-    public cUserInterface(String ptableName, String columnConfigFile) 
+    public cUserInterface(String ptableName, String[] pfieldNames) 
     {
         scanner = new Scanner(System.in);
         this.tableName = ptableName;
-        this.columnNames = readColumnNames(columnConfigFile);
-    }
-
-    public String[] readColumnNames(String fileName) 
-    {
-        List<String> columns = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) 
-        {
-            String column;
-            while ((column = br.readLine()) != null) 
-            {
-                columns.add(column.trim());
-            }
-        } 
-        catch (IOException e) 
-        {
-            System.err.println("Error reading column names from file: " + e.getMessage());
-        }
-        return columns.toArray(new String[0]);
+        this.fieldNames = pfieldNames;
     }
 
     public String[] getItemDetails() 
     {
-	    String[] details = new String[columnNames.length];
-	    for (int counter = 0; counter < columnNames.length; counter++) 
+	    String[] details = new String[fieldNames.length];
+	    for (int counter = 0; counter < fieldNames.length; counter++) 
 	    {
-	        System.out.print("Enter " + columnNames[counter] + ": ");
+	        System.out.print("Enter " + fieldNames[counter] + ": ");
 	        details[counter] = scanner.nextLine();
 	    }
 	    return details;
@@ -63,11 +45,12 @@ public class cUserInterface
         }
     }
 
-    public void printRecords(List<String[]> records, String[] columnNames) 
+
+    public void printRecords(List<String[]> records, String[] fieldNames) 
     {
         System.out.println("Records:");
 
-        for (String columnName : columnNames) 
+        for (String columnName : fieldNames) 
         {
             System.out.printf("%-20s", columnName);
         }
