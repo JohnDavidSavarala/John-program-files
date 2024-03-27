@@ -21,13 +21,13 @@ public class cXMLCRUDS implements iCRUDOperations {
 
     private String xmlFilePath;
     private String rootElementName;
-    private String[] columnNames;
+    private String[] fieldNames;
 
-    public cXMLCRUDS(String xmlFilePath, String rootElementName, String[] pcolumnNames) 
+    public cXMLCRUDS(String xmlFilePath, String rootElementName, String[] pfieldNames) 
     {
         this.xmlFilePath = xmlFilePath;
         this.rootElementName = rootElementName;
-        this.columnNames = pcolumnNames;
+        this.fieldNames = pfieldNames;
     }
 
     public int insertRecord(String[] itemDetails) 
@@ -57,9 +57,9 @@ public class cXMLCRUDS implements iCRUDOperations {
             }
 
             Element itemElement = doc.createElement("Item");
-            for (int counter = 0; counter < columnNames.length; counter++) 
+            for (int counter = 0; counter < fieldNames.length; counter++) 
             {
-                Element columnElement = doc.createElement(columnNames[counter]);
+                Element columnElement = doc.createElement(fieldNames[counter]);
                 columnElement.appendChild(doc.createTextNode(itemDetails[counter]));
                 itemElement.appendChild(columnElement);
             }
@@ -100,9 +100,9 @@ public class cXMLCRUDS implements iCRUDOperations {
                 {
                     Element element = (Element) node;
                     String[] record = new String[5];
-                    for (int columnCounter = 0; columnCounter < 5; columnCounter++) 
+                    for (int fieldCounter = 0; fieldCounter < 5; fieldCounter++) 
                     {
-                        record[columnCounter] = element.getElementsByTagName(columnNames[columnCounter]).item(0).getTextContent();
+                        record[fieldCounter] = element.getElementsByTagName(fieldNames[fieldCounter]).item(0).getTextContent();
                     }
                     records.add(record);
                 }
