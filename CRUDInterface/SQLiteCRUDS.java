@@ -17,16 +17,16 @@ public class cSQLiteCRUDS implements iCRUDOperations
     private Scanner scanner = new Scanner(System.in);
     private String dbName;
     private String tableName;
-    private String[] columnNames;
+    private String[] fieldNames;
 
-    public cSQLiteCRUDS(String pdbName, String ptableName, String[] pcolumnNames) 
+    public cSQLiteCRUDS(String pdbName, String ptableName, String[] pfieldNames) 
     {
         try 
         {
             Class.forName("org.sqlite.JDBC");
             this.dbName = pdbName;
             this.tableName = ptableName;
-            this.columnNames = pcolumnNames;
+            this.fieldNames = pfieldNames;
             String dbPath = "jdbc:sqlite:D:/training/sql/" + dbName;
             conn = DriverManager.getConnection(dbPath);
         } 
@@ -43,10 +43,10 @@ public class cSQLiteCRUDS implements iCRUDOperations
         {
             StringBuilder queryBuilder = new StringBuilder("INSERT INTO ");
             queryBuilder.append(tableName).append(" (");
-            for (int counter = 0; counter < columnNames.length; counter++) 
+            for (int counter = 0; counter < fieldNames.length; counter++) 
             {
-                queryBuilder.append(columnNames[counter]);
-                if (counter < columnNames.length - 1) 
+                queryBuilder.append(fieldNames[counter]);
+                if (counter < fieldNames.length - 1) 
                 {
                     queryBuilder.append(", ");
                 }
@@ -90,11 +90,11 @@ public class cSQLiteCRUDS implements iCRUDOperations
             while (rs.next()) 
             {
                 String[] record = new String[5];
-                record[0] = rs.getString(columnNames[0]);
-                record[1] = rs.getString(columnNames[1]);
-                record[2] = String.valueOf(rs.getInt(columnNames[2]));
-                record[3] = String.valueOf(rs.getInt(columnNames[3]));
-                record[4] = rs.getString(columnNames[4]);
+                record[0] = rs.getString(fieldNames[0]);
+                record[1] = rs.getString(fieldNames[1]);
+                record[2] = String.valueOf(rs.getInt(fieldNames[2]));
+                record[3] = String.valueOf(rs.getInt(fieldNames[3]));
+                record[4] = rs.getString(fieldNames[4]);
                 records.add(record);
             }
         } 
