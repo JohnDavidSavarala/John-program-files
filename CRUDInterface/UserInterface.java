@@ -46,7 +46,7 @@ public class cUserInterface
     }
 
 
-    public void printRecords(List<String[]> records, String[] fieldNames) 
+    public void printRecords(List<String[]> records) 
     {
         System.out.println("Records:");
 
