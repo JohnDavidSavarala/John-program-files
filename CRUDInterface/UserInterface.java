@@ -20,20 +20,20 @@ public class cUserInterface
         this.fieldNames = pfieldNames;
     }
 
-    public String[] getItemDetails() 
+    public String[] getRecordDetails() 
     {
-	    String[] details = new String[fieldNames.length];
+	    String[] recordDetails = new String[fieldNames.length];
 	    for (int counter = 0; counter < fieldNames.length; counter++) 
 	    {
 	        System.out.print("Enter " + fieldNames[counter] + ": ");
-	        details[counter] = scanner.nextLine();
+	        recordDetails[counter] = scanner.nextLine();
 	    }
-	    return details;
+	    return recordDetails;
 	}
 
     public void printOutcomeMessage(int pRowInserted, String pOperation) 
     {
-        System.out.print(tableName + " details " + pOperation + " is ");
+        System.out.print(tableName + " recordDetails " + pOperation + " is ");
 
         if (pRowInserted == 1) 
         {
