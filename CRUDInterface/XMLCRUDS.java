@@ -22,6 +22,7 @@ public class cXMLCRUDS implements iCRUDOperations {
     private String xmlFilePath;
     private String rootElementName;
     private String[] fieldNames;
+    private String subRootElement = "Item";
 
     public cXMLCRUDS(String xmlFilePath, String rootElementName, String[] pfieldNames) 
     {
@@ -30,7 +31,7 @@ public class cXMLCRUDS implements iCRUDOperations {
         this.fieldNames = pfieldNames;
     }
 
-    public int insertRecord(String[] itemDetails) 
+    public int insertRecord(String[] recordDetails) 
     {
         try 
         {
@@ -56,15 +57,15 @@ public class cXMLCRUDS implements iCRUDOperations {
                 doc.appendChild(rootElement);
             }
 
-            Element itemElement = doc.createElement("Item");
+            Element recordElement = doc.createElement(subRootElement);
             for (int counter = 0; counter < fieldNames.length; counter++) 
             {
-                Element columnElement = doc.createElement(fieldNames[counter]);
-                columnElement.appendChild(doc.createTextNode(itemDetails[counter]));
-                itemElement.appendChild(columnElement);
+                Element fieldElement = doc.createElement(fieldNames[counter]);
+                fieldElement.appendChild(doc.createTextNode(recordDetails[counter]));
+                recordElement.appendChild(fieldElement);
             }
 
-            rootElement.appendChild(itemElement);
+            rootElement.appendChild(recordElement);
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
@@ -91,7 +92,7 @@ public class cXMLCRUDS implements iCRUDOperations {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xmlFile);
             doc.getDocumentElement().normalize();
-            NodeList nodeList = doc.getElementsByTagName("Item");
+            NodeList nodeList = doc.getElementsByTagName(subRootElement);
 
             for (int counter = 0; counter < nodeList.getLength(); counter++) 
             {
