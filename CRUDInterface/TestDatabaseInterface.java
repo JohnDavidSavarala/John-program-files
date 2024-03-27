@@ -18,7 +18,7 @@ public class cTestDatabaseInterface
         String dbTypeFile = "db_type.cfg";
         String tableNameFile = "table_name.cfg";
         String dbNameFile = "db_name.cfg";
-        String fieldsFile = "fieldNames.cfg";
+        String fieldsFile = "field_names.cfg";
 
         try 
         {
@@ -53,7 +53,7 @@ public class cTestDatabaseInterface
                     switch (userChoice) 
                     {
                         case 1:
-                            String[] itemDetails = oUI.getItemDetails();
+                            String[] itemDetails = oUI.getRecordDetails();
                             int rowInserted = odatabase.insertRecord(itemDetails);
                             oUI.printOutcomeMessage(rowInserted, "insertion");
                             break;
