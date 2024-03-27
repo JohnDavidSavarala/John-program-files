@@ -16,7 +16,7 @@ public class cMySQLCRUDS implements iCRUDOperations
 {
 
     private Connection conn;
-    private PreparedStatement itemStatement;
+    private PreparedStatement Statement;
     private Scanner scanner = new Scanner(System.in);
     private String host;
     private String user;
@@ -47,7 +47,7 @@ public class cMySQLCRUDS implements iCRUDOperations
         
     }
 
-    public int insertRecord(String[] itemDetails) 
+    public int insertRecord(String[] recordDetails) 
     {
         int rowInserted = 0;
         try 
@@ -63,24 +63,24 @@ public class cMySQLCRUDS implements iCRUDOperations
                 }
             }
             queryBuilder.append(") VALUES (");
-            for (int counter = 0; counter < itemDetails.length; counter++) 
+            for (int counter = 0; counter < recordDetails.length; counter++) 
             {
                 queryBuilder.append("?");
-                if (counter < itemDetails.length - 1) 
+                if (counter < recordDetails.length - 1) 
                 {
                     queryBuilder.append(", ");
                 }
             }
             queryBuilder.append(")");
 
-            itemStatement = conn.prepareStatement(queryBuilder.toString());
+            Statement = conn.prepareStatement(queryBuilder.toString());
 
-            for (int counter = 0; counter < itemDetails.length; counter++) 
+            for (int counter = 0; counter < recordDetails.length; counter++) 
             {
-                itemStatement.setString(counter + 1, itemDetails[counter]);
+                Statement.setString(counter + 1, recordDetails[counter]);
             }
 
-            rowInserted = itemStatement.executeUpdate();
+            rowInserted = Statement.executeUpdate();
         } 
         catch (SQLException e) 
         {
@@ -95,8 +95,8 @@ public class cMySQLCRUDS implements iCRUDOperations
         try 
         {
             String query = "SELECT * FROM " + tableName;
-            itemStatement = conn.prepareStatement(query);
-            ResultSet rs = itemStatement.executeQuery();
+            Statement = conn.prepareStatement(query);
+            ResultSet rs = Statement.executeQuery();
 
             while (rs.next()) 
             {
